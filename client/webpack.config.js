@@ -1,8 +1,4 @@
 // GIVEN a text editor web application
-// WHEN I open my application in my editor
-// THEN I should see a client server folder structure
-// WHEN I run `npm run start` from the root directory
-// THEN I find that my application should start up the backend and serve the client
 // WHEN I run the text editor application from my terminal
 // THEN I find that my JavaScript files have been bundled using webpack
 // WHEN I run my webpack plugins
@@ -27,14 +23,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');//use
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
-const { InjectManifest, GenerateSW } = require('workbox-webpack-plugin');
-
-
-// TODO: Add and configure workbox plugins for a service worker.a
-// TODO: Add and configure workbox plugins for a manifest file.a
-// TODO: Add CSS loaders to webpack.b/////check
-// TODO: Add babel to webpack.b////check
-
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
@@ -52,7 +41,10 @@ module.exports = () => {
         template: './index.html',
         title: 'Webpack Plugin',
       }),
-      new GenerateSW(),
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "service-worker.js",
+      }),
       new WebpackPwaManifest({
         name: 'Just Another Text Editor',
         short_name: 'JATE',
@@ -60,6 +52,18 @@ module.exports = () => {
         background_color: '#ffffff',
         display: 'standalone',
         crossorigin: 'anonymous',
+        fingerprints: false,
+        inject: true,
+        start_url: "./",
+        publicPath: "./",
+        ios: true,
+        icons: [
+          {
+            src: path.resolve("src/images/logo.png"),
+            sizes: [72, 96, 120, 128, 144, 152, 180, 192, 256, 384, 512,],
+            destination: path.join("icons"),
+          },
+        ],
       }),
     ],
 
