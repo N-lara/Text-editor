@@ -1,5 +1,9 @@
 # Just Another Text Editor
 
+## Deployed Site
+
+https://just-another-text-editor-117903.onrender.com/
+
 ## Description
 
 This project is a text editor that uses many technologies we have recently learned. this uses workbox to create the client side code and sevice workers and plugins to help cache the resources and data inputted, and also indexdb to index and persist data for us. this compiles all theese skills to make a peaceful place to code.
