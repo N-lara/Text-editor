@@ -32,5 +32,6 @@ registerRoute(
   // JavaScript
   request.destination === 'script' ||
   // images
-  request.destination === 'image'
+  request.destination === 'image',
+  pageCache
 );
